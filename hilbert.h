@@ -20,10 +20,14 @@ int getHilbertZoneIndex(int num, int level);
 const int kHilbertChild = 8;
 
 class HilbertMesh {
+    // Describe a HilbertMesh
     private:
+    // Hilbert children
     HilbertMesh *child_[kHilbertChild];
+    // If the hilbert mesh is seperated
     bool seperate_;
-    // int level_;
+    // // Count how many nodes this mesh contains, dynamically updated
+    // int nodes_;
 
     public:
     HilbertMesh() = default;
@@ -32,12 +36,12 @@ class HilbertMesh {
     // Set Function
     void set_child(const int id, HilbertMesh *const newchild) { child_[id] = newchild; }
     void set_seperate(const bool seperate) { seperate_ = seperate; }
-    // void set_level(const int level) { level_ = level; }
+    // void set_level(const int nodes) { nodes_ = nodes; }
 
     // Get Function
     HilbertMesh *get_child(const int id) const { return child_[id]; }
     bool get_seperate() const { return seperate_; }
-    // int get_level() { return level_; }
+    // int get_nodes() const { return nodes_; }
 
     // Split Child
     void SplitChild(const int id);
@@ -47,9 +51,6 @@ class HilbertMesh {
 
     // Calculate id
     void CalcId(const std::vector<int> hilbert_cord);
-
-    // Calculate coordination
-    void CalcCoordination(const int id);
 };
 
 // Calculate the maximum depth of a hilbert mesh
@@ -58,6 +59,12 @@ int CalcHilbertLevel(HilbertMesh *const hilbert_mesh);
 // Delete the hilbert mesh
 void DeleteHilbertMesh(HilbertMesh *const hilbert_mesh);
 
+// Calc the coordination range of id-th block
+std::pair<std::vector<double>, std::vector<double>> CalcCoordination(HilbertMesh *const hilbert_mesh, const int id,
+                                                                     const std::vector<double> minc,
+                                                                     const std::vector<double> maxc);
+
+// return the block id which contains the block
 } // namespace hilbert
 
 using namespace hilbert;
