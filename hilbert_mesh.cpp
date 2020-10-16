@@ -79,5 +79,6 @@ std::pair<std::vector<double>, std::vector<double>> hilbert::CalcCoordination(Hi
     std::vector<double> st_point;
     std::vector<double> ed_point;
     if (hilbert_mesh == 0) {
+        return std::make_pair(minc, maxc);
     }
 }
